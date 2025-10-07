@@ -5,7 +5,7 @@ let books = {
   4: {
     author: "Unknown",
     title: "The Epic Of Gilgamesh",
-    reviews: { 1: "Good!" },
+    reviews: {},
   },
   5: { author: "Unknown", title: "The Book Of Job", reviews: {} },
   6: { author: "Unknown", title: "One Thousand and One Nights", reviews: {} },
@@ -13,7 +13,7 @@ let books = {
   8: {
     author: "Jane Austen",
     title: "Pride and Prejudice",
-    reviews: { 2: "Not bad..." },
+    reviews: {},
   },
   9: {
     author: "Honor\u00e9 de Balzac",
