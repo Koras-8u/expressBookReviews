@@ -24,43 +24,86 @@ public_users.post("/register", (req, res) => {
 // Get the book list available in the shop
 public_users.get("/", function (req, res) {
   console.log("START - Get list of books");
-  if (!books || Object.keys(books).length === 0)
-    return res.status(404).json({ message: "No books available" });
-  console.log("END - Get list of books");
-  return res.status(200).json(books);
+  new Promise((resolve, reject) => {
+    if (!books || Object.keys(books).length === 0)
+      reject({ status: 404, message: "No books available" });
+    else resolve(books);
+  })
+    .then((result) => {
+      console.log("END - Get list of books");
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(err.status).json({ message: err.message });
+    });
 });
 
 // Get book details based on ISBN
 public_users.get("/isbn/:isbn", function (req, res) {
   console.log("START - Get books by ISBN");
-  const book = books[req.params.isbn];
-  if (!book) return res.status(404).json({ message: "Book not found" });
-  console.log("END - Get books by ISBN");
-  return res.status(200).json(book);
+  new Promise((resolve, reject) => {
+    const book = books[req.params.isbn];
+    if (!book) {
+      reject({ status: 404, message: "Book not found" });
+    } else {
+      resolve(book);
+    }
+  })
+    .then((result) => {
+      console.log("END - Get books by ISBN");
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(err.status).json({ message: err.message });
+    });
 });
 
 // Get book details based on author
 public_users.get("/author/:author", function (req, res) {
   console.log("START - Get books by author");
-  const booksByAuthor = Object.values(books).filter(
-    (book) => book.author === req.params.author
-  );
-  if (booksByAuthor.length === 0)
-    return res.status(404).json({ message: "Books not found" });
-  console.log("END - Get books by author");
-  return res.status(200).json(booksByAuthor);
+  new Promise((resolve, reject) => {
+    const booksByAuthor = Object.values(books).filter(
+      (book) => book.author === req.params.author
+    );
+    if (booksByAuthor.length === 0) {
+      reject({ status: 404, message: "Books not found" });
+    } else {
+      resolve(booksByAuthor);
+    }
+  })
+    .then((result) => {
+      console.log("END - Get books by author");
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(err.status).json({ message: err.message });
+    });
 });
 
 // Get all books based on title
 public_users.get("/title/:title", function (req, res) {
   console.log("START - Get books by title");
-  const booksByTitle = Object.values(books).filter(
-    (book) => book.title === req.params.title
-  );
-  if (booksByTitle.length === 0)
-    return res.status(404).json({ message: "Books not found" });
-  console.log("END - Get books by title");
-  return res.status(200).json(booksByTitle);
+  new Promise((resolve, reject) => {
+    const booksByTitle = Object.values(books).filter(
+      (book) => book.title === req.params.title
+    );
+    if (booksByTitle.length === 0) {
+      reject({ status: 404, message: "Books not found" });
+    } else {
+      resolve(booksByTitle);
+    }
+  })
+    .then((result) => {
+      console.log("END - Get books by title");
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(err.status).json({ message: err.message });
+    });
 });
 
 //  Get book review
